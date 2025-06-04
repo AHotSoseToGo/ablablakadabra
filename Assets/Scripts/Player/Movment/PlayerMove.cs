@@ -12,6 +12,8 @@ public class PlayerMove : MonoBehaviour
     [Space]
     public PlayerStamina playerStamina;
     public PlayerHealth playerHealth;
+    [Space]
+    public PauseMenu pauseMenu;
 
     [Header("Inputs")]
     public KeyCode Run;
@@ -83,6 +85,11 @@ public class PlayerMove : MonoBehaviour
         if (playerHealth.isDed)
         {
             rb.freezeRotation = false;
+            return;
+        }
+
+        if (pauseMenu.isPaused)
+        {
             return;
         }
 

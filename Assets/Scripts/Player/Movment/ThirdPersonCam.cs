@@ -11,6 +11,7 @@ public class ThirdPersonCam : MonoBehaviour
     public Transform player;
     public Transform playerObj;
     public PlayerHealth playerHealth;
+    public PauseMenu pauseMenu;
 
     public KeyCode Swich;
 
@@ -43,6 +44,11 @@ public class ThirdPersonCam : MonoBehaviour
             return;
         }
 
+        if (pauseMenu.isPaused)
+        {
+            return;
+        }
+
         if (Input.GetKeyDown(Swich)) SwichCameraStyles(CamStyle.Combat);
         if (Input.GetKeyUp(Swich)) SwichCameraStyles(CamStyle.Basic);
 
@@ -61,7 +67,9 @@ public class ThirdPersonCam : MonoBehaviour
 
         else if (currentCamStyle == CamStyle.Combat)
         {
+            float verticalImput = Input.GetAxisRaw("Vertical");
             Vector3 dirToCombatLookAt = combatLookAt.position - new Vector3(transform.position.x, combatLookAt.position.y, transform.position.z);
+
             orientation.forward = dirToCombatLookAt.normalized;
 
             playerObj.forward = Vector3.Slerp(playerObj.forward, dirToCombatLookAt.normalized, Time.deltaTime * rotationSpeed);
@@ -78,4 +86,7 @@ public class ThirdPersonCam : MonoBehaviour
 
         currentCamStyle = newStyle;
     }
+
+    // So that you dont walk and dash wardly when walking sideways
+    
 }

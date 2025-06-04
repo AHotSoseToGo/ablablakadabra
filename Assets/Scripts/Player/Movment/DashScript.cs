@@ -11,6 +11,7 @@ public class DashScript : MonoBehaviour
     private PlayerMove pm;
     public Transform playerGRFX;
     public PlayerStamina playerStamina;
+    public PauseMenu pauseMenu;
 
     [Header("Dashing")]
     public float dashForce;
@@ -34,6 +35,11 @@ public class DashScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (pauseMenu.isPaused)
+        {
+            return;
+        }
+
         if (Input.GetKeyDown(DashKey) && playerStamina.canDashStam)
         {
             Dash();
